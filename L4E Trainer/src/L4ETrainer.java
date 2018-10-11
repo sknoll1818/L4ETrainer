@@ -75,12 +75,12 @@ public class L4ETrainer extends JFrame {
     		 Random rand = new Random();
     	    	int sliceR = rand.nextInt((13) + 1) + 0;
     	    	int flipR = rand.nextInt(2+1) + 0;
-    	    	if(sliceR >=6 ) {
-    	    	s+= slice5[sliceR] + flips[flipR] + slice5[sliceR-7]+" y ";
+    	    	if(sliceR >=6) {
+    	    	s+= slice7[sliceR] + flips[flipR] + slice7[sliceR-7]+" y ";
     	    	}
     	    	else 
-    	    		s+= slice5[sliceR] + flips[flipR] + slice5[sliceR]+"' y ";
-    	
+    	    		s+= slice7[sliceR] + flips[flipR] + slice7[sliceR]+"' y ";
+    		}
     	    	if (p.isSelected()) {
     	    s+= " z Rw U2 x Rw U2 Rw U2' Rw' U2 Lw U2 3Rw' U2' Rw U2 Rw' U2' Rw' R z' ";
     	   }
@@ -88,7 +88,7 @@ public class L4ETrainer extends JFrame {
     	    	JLabel gen = new JLabel(s);
     	    	createLayout(gen);
     	    	s="                      Alg:  ";
-    		}	
+    			
     	}
     	else if(b6.isSelected()) {
     		for(int i = 0; i<=4; i++) {
