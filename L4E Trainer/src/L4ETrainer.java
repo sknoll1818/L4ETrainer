@@ -1,5 +1,7 @@
 import java.awt.Container;
 import java.awt.EventQueue;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.Random;
@@ -9,97 +11,114 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
 import javax.swing.JCheckBox;
 
 public class L4ETrainer extends JFrame {
-  static L4ETrainer ex = new L4ETrainer();
-  JLabel title = new JLabel("L4E Trainer. Remeber to realign all slice moves after the scramble");
-  JButton ref = new JButton("Refresh");
-  final JRadioButton b5 = new JRadioButton("5x5");
-  final JRadioButton b6 = new JRadioButton("6x6");
-  final JRadioButton b7 = new JRadioButton("7x7");
+    static L4ETrainer ex = new L4ETrainer();
+    JLabel title = new JLabel("L4E Trainer. Remember to realign all slice moves after the scramble");
 
-  JLabel space = new JLabel(" ");
-  JCheckBox p = new JCheckBox("Parity");
-  String s;
+    final JRadioButton b5 = new JRadioButton("5x5");
+    final JRadioButton b6 = new JRadioButton("6x6");
+    final JRadioButton b7 = new JRadioButton("7x7");
+    JTextArea algDisplay = new JTextArea("Alg:", 5, 30);
 
-  public L4ETrainer() {
-    initUI();
-  }
-
-  private void initUI() {
-    createLayout(title);
-    title.setBounds(200, 200, 1000, 30);
-    s = "                      Alg:  ";
-    createLayout(space);
-    space.setBounds(0, 0, 0, 0);
     JButton submit = new JButton("Submit");
 
-    submit.addActionListener((ActionEvent event) -> {
-      String alg = "";
-      if (b5.isSelected()) alg = AlgGenerator.createAlg5(p.isSelected());
-      else if (b6.isSelected()) alg = AlgGenerator.createAlg6(p.isSelected());
-      else if (b7.isSelected()) alg = AlgGenerator.createAlg7(p.isSelected());
-      createLayout(new JLabel(alg));
-    });
+    JLabel space = new JLabel(" ");
+    JCheckBox p = new JCheckBox("Parity");
 
-    ref.addActionListener((ActionEvent event) -> {
-      L4ETrainer ex1 = new L4ETrainer();
-      ex1.setVisible(true);
-      ex.setVisible(false);
-    });
-    createLayout(ref);
-    ref.setBounds(0, 400, 100, 60);
-    createLayout(submit);
-    submit.setBounds(0, 300, 100, 60);
+    GridBagLayout layout = new GridBagLayout();
+    JPanel panel = new JPanel();
 
-    b5.setMnemonic(KeyEvent.VK_5);
-    b6.setMnemonic(KeyEvent.VK_6);
-    b7.setMnemonic(KeyEvent.VK_7);
+    public L4ETrainer() {
+        initUI();
+    }
 
-    ButtonGroup bg = new ButtonGroup();
+    private void initUI() {
+        GridBagConstraints c;
+        panel.setLayout(layout);
+        c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy = 0;
+        c.gridwidth = 5;
+        c.weightx = 1;
+        panel.add(title, c);
+        c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy = 1;
+        c.weightx = 0.2;
+        panel.add(p, c);
+        c = new GridBagConstraints();
+        c.gridx = 1;
+        c.gridy = 1;
+        c.weightx = 0.2;
+        panel.add(b5, c);
+        c = new GridBagConstraints();
+        c.gridx = 2;
+        c.gridy = 1;
+        c.weightx = 0.2;
+        panel.add(b6, c);
+        c = new GridBagConstraints();
+        c.gridx = 3;
+        c.gridy = 1;
+        c.weightx = 0.2;
+        panel.add(b7, c);
+        c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy = 2;
+        c.gridwidth = 4;
+        panel.add(algDisplay, c);
+        c = new GridBagConstraints();
+        c.gridx = 4;
+        c.gridy = 1;
+        c.gridheight = 2;
+        c.weightx = 0.2;
+        c.fill = GridBagConstraints.BOTH;
+        panel.add(submit, c);
 
-    bg.add(b5);
-    bg.add(b6);
-    bg.add(b7);
+        submit.addActionListener((ActionEvent event) -> {
+            String alg = "Alg: ";
+            if (b5.isSelected())
+                alg += AlgGenerator.createAlg5(p.isSelected());
+            else if (b6.isSelected())
+                alg += AlgGenerator.createAlg6(p.isSelected());
+            else if (b7.isSelected())
+                alg += AlgGenerator.createAlg7(p.isSelected());
+            algDisplay.setText(alg);
+            this.repaint();
+        });
 
-    createLayout(b5);
-    createLayout(b6);
-    createLayout(b7);
 
-    // x,y,width, height
-    b5.setBounds(50, 50, 100, 100);
-    b6.setBounds(50, 100, 100, 100);
-    b7.setBounds(50, 150, 100, 100);
+        b5.setMnemonic(KeyEvent.VK_5);
+        b6.setMnemonic(KeyEvent.VK_6);
+        b7.setMnemonic(KeyEvent.VK_7);
 
-    p.setMnemonic(KeyEvent.VK_C);
-    p.setSelected(false);
-    createLayout(p);
+        ButtonGroup bg = new ButtonGroup();
 
-    setTitle("L4E Trainer");
-    setSize(1000, 1000);
-    setLocationRelativeTo(null);
-    setDefaultCloseOperation(EXIT_ON_CLOSE);
-  }
+        bg.add(b5);
+        bg.add(b6);
+        bg.add(b7);
 
-  private void createLayout(JComponent... arg) {
+        algDisplay.setEditable(false);
+        algDisplay.setLineWrap(true);
 
-    Container pane = getContentPane();
-    GroupLayout gl = new GroupLayout(pane);
-    pane.setLayout(gl);
+        p.setMnemonic(KeyEvent.VK_C);
+        p.setSelected(false);
 
-    gl.setAutoCreateContainerGaps(true);
+        setContentPane(panel);
+        setTitle("L4E Trainer");
+        setSize(600, 300);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
 
-    gl.setHorizontalGroup(gl.createSequentialGroup().addComponent(arg[0]));
+    public static void main(String[] args) {
 
-    gl.setVerticalGroup(gl.createSequentialGroup().addComponent(arg[0]));
-  }
-
-  public static void main(String[] args) {
-
-    EventQueue.invokeLater(() -> {
-      ex.setVisible(true);
-    });
-  }
+        EventQueue.invokeLater(() -> {
+            ex.setVisible(true);
+        });
+    }
 }
