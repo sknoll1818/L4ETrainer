@@ -14,8 +14,7 @@ import javax.swing.JCheckBox;
 
 public class L4ETrainer extends JFrame {
   static L4ETrainer ex = new L4ETrainer();
-  JLabel title = new JLabel(
-      "L4E Trainer. Remeber to realign all slice moves after the scramble");
+  JLabel title = new JLabel("L4E Trainer. Remeber to realign all slice moves after the scramble");
   JButton ref = new JButton("Refresh");
   final JRadioButton b5 = new JRadioButton("5x5");
   final JRadioButton b6 = new JRadioButton("6x6");
@@ -25,81 +24,8 @@ public class L4ETrainer extends JFrame {
   JCheckBox p = new JCheckBox("Parity");
   String s;
 
-  String[] slice5 = new String[] {"u", "e", "d", "E", "u'", "e'", "d'", "E'"};
-
-  String[] slice7 = new String[] {"u",  "e",  "d",  "E",  "2u",  "2d",  "3e",
-                                  "u'", "e'", "d'", "E'", "2u'", "2d'", "3e'"};
-
-  String[] slice6 = new String[] {"u",  "e",  "d",  "E",  "2u",  "2d",
-                                  "u'", "e'", "d'", "E'", "2u'", "2d'"};
-
-  String[] flips =
-      new String[] {" R U2 R' F U' F' ", " R L' U R' L U F' U' F2 U2 F' ",
-                    " R L U R' L' U F' B' U' F B "};
-
-  public L4ETrainer() { initUI(); }
-  private void createComm() {
-
-    if (b5.isSelected()) {
-      for (int i = 0; i <= 2; i++) {
-        Random rand = new Random();
-        int sliceR = rand.nextInt((6) + 1) + 0;
-        int flipR = rand.nextInt(1 + 1) + 0;
-        if (sliceR >= 4) {
-          s += slice5[sliceR] + flips[flipR] + " y ";
-        } else
-          s += slice5[sliceR] + flips[flipR] + " y ";
-      }
-      if (p.isSelected()) {
-        s +=
-            " z Rw U2 x Rw U2 Rw U2' Rw' U2 Lw U2 3Rw' U2' Rw U2 Rw' U2' Rw' R z' ";
-      }
-
-      JLabel gen = new JLabel(s);
-      createLayout(gen);
-      gen.setBounds(100, 100, 100, 1000);
-      s = "                      Alg:  ";
-
-    } else if (b7.isSelected()) {
-      for (int i = 0; i <= 4; i++) {
-        Random rand = new Random();
-        int sliceR = rand.nextInt((13) + 1) + 0;
-        int flipR = rand.nextInt(2 + 1) + 0;
-        if (sliceR >= 6) {
-          s += slice7[sliceR] + flips[flipR] + " y ";
-        } else
-          s += slice7[sliceR] + flips[flipR] + " y ";
-      }
-      if (p.isSelected()) {
-        s +=
-            " z Rw U2 x Rw U2 Rw U2' Rw' U2 Lw U2 3Rw' U2' Rw U2 Rw' U2' Rw' R z' ";
-      }
-
-      JLabel gen = new JLabel(s);
-      createLayout(gen);
-      gen.setBounds(100, 100, 100, 1000);
-      s = "                      Alg:  ";
-
-    } else if (b6.isSelected()) {
-      for (int i = 0; i <= 4; i++) {
-        Random rand = new Random();
-        int sliceR = rand.nextInt((10) + 1) + 0;
-        int flipR = rand.nextInt(1 + 1) + 0;
-        if (sliceR >= 5) {
-          s += slice6[sliceR] + flips[flipR] + " y ";
-        } else
-          s += slice6[sliceR] + flips[flipR] + " y ";
-      }
-      if (p.isSelected()) {
-        s +=
-            " z Rw U2 x Rw U2 Rw U2' Rw' U2 Lw U2 3Rw' U2' Rw U2 Rw' U2' Rw' R z' ";
-      }
-
-      JLabel gen = new JLabel(s);
-      createLayout(gen);
-      gen.setBounds(100, 100, 100, 1000);
-      s = "                      Alg:  ";
-    }
+  public L4ETrainer() {
+    initUI();
   }
 
   private void initUI() {
@@ -110,7 +36,13 @@ public class L4ETrainer extends JFrame {
     space.setBounds(0, 0, 0, 0);
     JButton submit = new JButton("Submit");
 
-    submit.addActionListener((ActionEvent event) -> { createComm(); });
+    submit.addActionListener((ActionEvent event) -> {
+      String alg = "";
+      if (b5.isSelected()) alg = AlgGenerator.createAlg5(p.isSelected());
+      else if (b6.isSelected()) alg = AlgGenerator.createAlg6(p.isSelected());
+      else if (b7.isSelected()) alg = AlgGenerator.createAlg7(p.isSelected());
+      createLayout(new JLabel(alg));
+    });
 
     ref.addActionListener((ActionEvent event) -> {
       L4ETrainer ex1 = new L4ETrainer();
@@ -166,6 +98,8 @@ public class L4ETrainer extends JFrame {
 
   public static void main(String[] args) {
 
-    EventQueue.invokeLater(() -> { ex.setVisible(true); });
+    EventQueue.invokeLater(() -> {
+      ex.setVisible(true);
+    });
   }
 }
