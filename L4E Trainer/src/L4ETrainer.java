@@ -1,5 +1,7 @@
 import java.awt.Container;
 import java.awt.EventQueue;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.Random;
@@ -9,201 +11,114 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
 import javax.swing.JCheckBox;
 
 public class L4ETrainer extends JFrame {
-	static L4ETrainer ex = new L4ETrainer();
-	JLabel title = new JLabel("L4E Trainer. Remeber to realign all slice moves after the scramble");
-	JButton ref = new JButton("Refresh");
-	 final JRadioButton b5 = new JRadioButton("5x5");
-     final JRadioButton b6 = new JRadioButton("6x6");
-     final JRadioButton b7 = new JRadioButton("7x7");
-     
-     
-	JLabel space = new JLabel(" ");
-	 JCheckBox p = new JCheckBox("Parity");
-	String s;
-	
-	
-	String[] slice5 = new String[] {
-			"u", "e", "d","E",
-			"u'", "e'", "d'", "E'"
-	};
-	
-	String[] slice7 = new String[] {
-			"u", "e", "d","E","2u", "2d","3e", 
-			"u'", "e'", "d'","E'","2u'", "2d'","3e'"
-	};
-	
-	String[] slice6 = new String[] {
-			"u", "e", "d","E","2u", "2d",
-			"u'", "e'", "d'","E'","2u'", "2d'"
-	};
-	
-	String[] flips = new String[] {
-			" R U2 R' F U' F' ", " R L' U R' L U F' U' F2 U2 F' ", " R L U R' L' U F' B' U' F B "
-	};
-			
-    public L4ETrainer() {
+    static L4ETrainer ex = new L4ETrainer();
+    JLabel title = new JLabel("L4E Trainer. Remember to realign all slice moves after the scramble");
 
+    final JRadioButton b5 = new JRadioButton("5x5");
+    final JRadioButton b6 = new JRadioButton("6x6");
+    final JRadioButton b7 = new JRadioButton("7x7");
+    JTextArea algDisplay = new JTextArea("Alg:", 5, 30);
+
+    JButton submit = new JButton("Submit");
+
+    JLabel space = new JLabel(" ");
+    JCheckBox p = new JCheckBox("Parity");
+
+    GridBagLayout layout = new GridBagLayout();
+    JPanel panel = new JPanel();
+
+    public L4ETrainer() {
         initUI();
     }
-    private void createComm() {
-    	
-    
-    	if(b5.isSelected()) {
-    	for(int i = 0; i<=2; i++) {
-    Random rand = new Random();
-    	int sliceR = rand.nextInt((6) + 1) + 0;
-    	int flipR = rand.nextInt(1+1) + 0;
-    	if(sliceR >=4 ) {
-    	s+= slice5[sliceR] + flips[flipR]+" y ";
-    	}
-    	else 
-    		s+= slice5[sliceR] + flips[flipR]+" y ";
-}
-    	if (p.isSelected()) {
-    s+= " z Rw U2 x Rw U2 Rw U2' Rw' U2 Lw U2 3Rw' U2' Rw U2 Rw' U2' Rw' R z' ";
-   }
-    	
-    	JLabel gen = new JLabel(s);
-    	createLayout(gen);
-    	gen.setBounds(100,100,100,1000);
-    	s="                      Alg:  ";
-    	
-    }
-    	else if(b7.isSelected()) {
-    		for(int i = 0; i<=4; i++) {
-    		 Random rand = new Random();
-    	    	int sliceR = rand.nextInt((13) + 1) + 0;
-    	    	int flipR = rand.nextInt(2+1) + 0;
-    	    	if(sliceR >=6) {
-    	    	s+= slice7[sliceR] + flips[flipR]+" y ";
-    	    	}
-    	    	else 
-    	    		s+= slice7[sliceR] + flips[flipR]+" y ";
-    		}
-    	    	if (p.isSelected()) {
-    	    s+= " z Rw U2 x Rw U2 Rw U2' Rw' U2 Lw U2 3Rw' U2' Rw U2 Rw' U2' Rw' R z' ";
-    	   }
-    	    	
-    	    	JLabel gen = new JLabel(s);
-    	    	createLayout(gen);
-    	    	gen.setBounds(100,100,100,1000);
-    	    	s="                      Alg:  ";
-    			
-    	}
-    	else if(b6.isSelected()) {
-    		for(int i = 0; i<=4; i++) {
-   		 Random rand = new Random();
-   	    	int sliceR = rand.nextInt((10) + 1) + 0;
-   	    	int flipR = rand.nextInt(1+1) + 0;
-   	    	if(sliceR >=5 ) {
-   	    	s+= slice6[sliceR] + flips[flipR]+" y ";
-   	    	}
-   	    	else 
-   	    		s+= slice6[sliceR] + flips[flipR]+" y ";
-    		}
-   	    	if (p.isSelected()) {
-   	    s+= " z Rw U2 x Rw U2 Rw U2' Rw' U2 Lw U2 3Rw' U2' Rw U2 Rw' U2' Rw' R z' ";
-   	   }
-   	    	
-   	    	JLabel gen = new JLabel(s);
-   	    	createLayout(gen);
-   	    	gen.setBounds(100,100,100,1000);
-   	    	s="                      Alg:  ";
-   	    	
-   	    	
-   	
-    	}
-    }
-    
-    
+
     private void initUI() {
-    	createLayout(title);
-    	title.setBounds(200,200,1000,30);
-    	s = "                      Alg:  ";
-    	createLayout(space);
-    	space.setBounds(0, 0, 0, 0);
-        JButton submit = new JButton("Submit");
+        GridBagConstraints c;
+        panel.setLayout(layout);
+        c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy = 0;
+        c.gridwidth = 5;
+        c.weightx = 1;
+        panel.add(title, c);
+        c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy = 1;
+        c.weightx = 0.2;
+        panel.add(p, c);
+        c = new GridBagConstraints();
+        c.gridx = 1;
+        c.gridy = 1;
+        c.weightx = 0.2;
+        panel.add(b5, c);
+        c = new GridBagConstraints();
+        c.gridx = 2;
+        c.gridy = 1;
+        c.weightx = 0.2;
+        panel.add(b6, c);
+        c = new GridBagConstraints();
+        c.gridx = 3;
+        c.gridy = 1;
+        c.weightx = 0.2;
+        panel.add(b7, c);
+        c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy = 2;
+        c.gridwidth = 4;
+        panel.add(algDisplay, c);
+        c = new GridBagConstraints();
+        c.gridx = 4;
+        c.gridy = 1;
+        c.gridheight = 2;
+        c.weightx = 0.2;
+        c.fill = GridBagConstraints.BOTH;
+        panel.add(submit, c);
 
         submit.addActionListener((ActionEvent event) -> {
-            createComm();
+            String alg = "Alg: ";
+            if (b5.isSelected())
+                alg += AlgGenerator.createAlg5(p.isSelected());
+            else if (b6.isSelected())
+                alg += AlgGenerator.createAlg6(p.isSelected());
+            else if (b7.isSelected())
+                alg += AlgGenerator.createAlg7(p.isSelected());
+            algDisplay.setText(alg);
+            this.repaint();
         });
-        
-        ref.addActionListener((ActionEvent event) -> {
-           
-               L4ETrainer ex1 = new L4ETrainer();
-               ex1.setVisible(true);    
-               ex.setVisible(false);
-        });
-        createLayout(ref);
-        ref.setBounds(0,400,100,60);
-       createLayout(submit);
-       submit.setBounds(0, 300, 100, 60);
-       
-      
 
-       b5.setMnemonic(KeyEvent.VK_5);
-       b6.setMnemonic(KeyEvent.VK_6);
-       b7.setMnemonic(KeyEvent.VK_7);
-       
-       ButtonGroup bg = new ButtonGroup();
-       
-       bg.add(b5);
-       bg.add(b6);
-       bg.add(b7);
-      
-       createLayout(b5);
-       createLayout(b6);
-       createLayout(b7);
-       
-       
-       // x,y,width, height
-       b5.setBounds(50, 50, 100, 100);
-       b6.setBounds(50, 100, 100, 100);
-       b7.setBounds(50, 150, 100, 100);
-       
-    
-        p.setMnemonic(KeyEvent.VK_C); 
+
+        b5.setMnemonic(KeyEvent.VK_5);
+        b6.setMnemonic(KeyEvent.VK_6);
+        b7.setMnemonic(KeyEvent.VK_7);
+
+        ButtonGroup bg = new ButtonGroup();
+
+        bg.add(b5);
+        bg.add(b6);
+        bg.add(b7);
+
+        algDisplay.setEditable(false);
+        algDisplay.setLineWrap(true);
+
+        p.setMnemonic(KeyEvent.VK_C);
         p.setSelected(false);
-        createLayout(p);
-        
+
+        setContentPane(panel);
         setTitle("L4E Trainer");
-        setSize(1000, 1000);
+        setSize(600, 300);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        
-        
-        
-        
     }
 
-    private void createLayout(JComponent... arg) {
-
-        Container pane = getContentPane();
-        GroupLayout gl = new GroupLayout(pane);
-        pane.setLayout(gl);
-
-        gl.setAutoCreateContainerGaps(true);
-
-        gl.setHorizontalGroup(gl.createSequentialGroup()
-                .addComponent(arg[0])
-        );
-
-        gl.setVerticalGroup(gl.createSequentialGroup()
-                .addComponent(arg[0])
-        );
-        
-    }
-   
     public static void main(String[] args) {
 
         EventQueue.invokeLater(() -> {
-            
             ex.setVisible(true);
         });
     }
 }
-
