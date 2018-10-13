@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
@@ -17,14 +18,16 @@ import javax.swing.JTextArea;
 import javax.swing.JCheckBox;
 
 public class L4ETrainer extends JFrame {
+	JLabel header = new JLabel("L4E Trainer");
     static L4ETrainer ex = new L4ETrainer();
-    JLabel title = new JLabel("L4E Trainer. Remember to realign all slice moves after the scramble");
+    JLabel reminder = new JLabel("Remember to realign all slice moves after the scramble");
 
     final JRadioButton b5 = new JRadioButton("5x5");
     final JRadioButton b6 = new JRadioButton("6x6");
     final JRadioButton b7 = new JRadioButton("7x7");
+    
     JTextArea algDisplay = new JTextArea("Alg:", 5, 30);
-
+    
     JButton submit = new JButton("Submit");
 
     JLabel space = new JLabel(" ");
@@ -38,44 +41,55 @@ public class L4ETrainer extends JFrame {
     }
 
     private void initUI() {
+    	
+    	panel.setBackground(new Color(255,255,255));
+    	algDisplay.setBounds(10, 10, 1000, 50);
         GridBagConstraints c;
         panel.setLayout(layout);
+        
         c = new GridBagConstraints();
         c.gridx = 0;
         c.gridy = 0;
         c.gridwidth = 5;
         c.weightx = 1;
-        panel.add(title, c);
+        panel.add(reminder, c);
+        
         c = new GridBagConstraints();
         c.gridx = 0;
         c.gridy = 1;
         c.weightx = 0.2;
         panel.add(p, c);
+        
         c = new GridBagConstraints();
         c.gridx = 1;
         c.gridy = 1;
         c.weightx = 0.2;
         panel.add(b5, c);
+        
         c = new GridBagConstraints();
         c.gridx = 2;
         c.gridy = 1;
         c.weightx = 0.2;
         panel.add(b6, c);
+        
         c = new GridBagConstraints();
         c.gridx = 3;
         c.gridy = 1;
         c.weightx = 0.2;
         panel.add(b7, c);
+        
         c = new GridBagConstraints();
         c.gridx = 0;
         c.gridy = 2;
         c.gridwidth = 4;
         panel.add(algDisplay, c);
+        
         c = new GridBagConstraints();
         c.gridx = 4;
         c.gridy = 1;
         c.gridheight = 2;
         c.weightx = 0.2;
+        
         c.fill = GridBagConstraints.BOTH;
         panel.add(submit, c);
 
