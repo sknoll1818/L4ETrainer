@@ -17,56 +17,57 @@ public class AlgGenerator {
             Random rand = new Random();
             int sliceR = (int)(Math.random() * 6 );
             int flipR = rand.nextInt(1 + 1) + 0;
-            //if (sliceR == 8) {
-            //	s+= "E F2 E'";
-            //}
-            //else if (sliceR >= 4) {
-            //    s += slice5[sliceR] + flips[flipR] + " y ";
-          //  } else
-            //    s += slice5[sliceR] + flips[flipR] + " y ";
-      //  }
            switch(sliceR){
-               case 0: s+= "u " + flips[flipR] + "u' y";
+               case 0: s+= "u " + flips[flipR] + "u' y ";
                    break;
-               case 1: s+= "e " + flips[flipR] + "e' y";
+               case 1: s+= "e " + flips[flipR] + "e' y ";
                    break;
-               case 2: s+= "d " + flips[flipR] + "d' y";
+               case 2: s+= "d " + flips[flipR] + "d' y ";
                    break;
-               case 3:
-                   s+= "u' " + flips[flipR] + "u y";
+               case 3: s+= "u' " + flips[flipR] + "u y ";
                    break;
-               case 4: s+="e' " + flips[flipR] + "e y";
+               case 4: s+="e' " + flips[flipR] + "e y ";
                    break;
-               case 5: s+="d' " + flips[flipR] + "d' y";
+               case 5: s+="d' " + flips[flipR] + "d' y ";
                    break;
-               case 6: s+= "E F2 E';
+               case 6: s+= "E F2 E'";
                    break;
            }
+        }
         if (parity) {
             s += " z Rw U2 x Rw U2 Rw U2' Rw' U2 Lw U2 3Rw' U2' Rw U2 Rw' U2' Rw' R z' ";
         }
-
-        return s;
+        
+    return s;
+        
     }
-
     public static String createAlg5w() {
         String s = "";
         for (int i = 0; i <= 3; i++) {
             Random rand = new Random();
-            int sliceR = rand.nextInt((6) + 1) + 0;
+            int sliceR = (int)(Math.random() * 6 );
             int flipR = rand.nextInt(1 + 1) + 0;
-            if (sliceR == 8) {
-            	s+= "E F2 E'";
-            }
-            else if (sliceR >= 4) {
-                s += slice5[sliceR]+"w " + flips[flipR] + " y ";
-            } else
-                s += slice5[sliceR]+"w " + flips[flipR] + " y ";
+           switch(sliceR){
+               case 0: s+= "uw " + flips[flipR] + "uw' y ";
+                   break;
+               case 1: s+= "ew " + flips[flipR] + "ew' y ";
+                   break;
+               case 2: s+= "dw " + flips[flipR] + "dw' y ";
+                   break;
+               case 3: s+= "uw' " + flips[flipR] + "uw y ";
+                   break;
+               case 4: s+="ew' " + flips[flipR] + "ew y ";
+                   break;
+               case 5: s+="dw' " + flips[flipR] + "dw' y ";
+                   break;
+               case 6: s+= "E F2 E'";
+                   break;
+           }
         }
-
-        return s;
+        
+    return s;
+      
     }
-
     public static String createAlg7(boolean parity) {
        String s = createAlg5w()+ createAlg5(parity);
         if (parity) {
@@ -74,7 +75,6 @@ public class AlgGenerator {
         }
         return s;
     }
-
     public static String createAlg6(boolean parity) {
     	 String s = createAlg5w()+ createAlg5(parity);
         if (parity) {
@@ -82,5 +82,4 @@ public class AlgGenerator {
         }
         return s;
     }
-
 }
