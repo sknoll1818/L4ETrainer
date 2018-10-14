@@ -15,16 +15,33 @@ public class AlgGenerator {
         String s = "";
         for (int i = 0; i <= 3; i++) {
             Random rand = new Random();
-            int sliceR = rand.nextInt((6) + 1) + 0;
+            int sliceR = (int)(Math.random() * 6 );
             int flipR = rand.nextInt(1 + 1) + 0;
-            if (sliceR == 8) {
-            	s+= "E F2 E'";
-            }
-            else if (sliceR >= 4) {
-                s += slice5[sliceR] + flips[flipR] + " y ";
-            } else
-                s += slice5[sliceR] + flips[flipR] + " y ";
-        }
+            //if (sliceR == 8) {
+            //	s+= "E F2 E'";
+            //}
+            //else if (sliceR >= 4) {
+            //    s += slice5[sliceR] + flips[flipR] + " y ";
+          //  } else
+            //    s += slice5[sliceR] + flips[flipR] + " y ";
+      //  }
+           switch(sliceR){
+               case 0: s+= "u " + flips[flipR] + "u' y";
+                   break;
+               case 1: s+= "e " + flips[flipR] + "e' y";
+                   break;
+               case 2: s+= "d " + flips[flipR] + "d' y";
+                   break;
+               case 3:
+                   s+= "u' " + flips[flipR] + "u y";
+                   break;
+               case 4: s+="e' " + flips[flipR] + "e y";
+                   break;
+               case 5: s+="d' " + flips[flipR] + "d' y";
+                   break;
+               case 6: s+= "E F2 E';
+                   break;
+           }
         if (parity) {
             s += " z Rw U2 x Rw U2 Rw U2' Rw' U2 Lw U2 3Rw' U2' Rw U2 Rw' U2' Rw' R z' ";
         }
