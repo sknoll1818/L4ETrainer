@@ -20,7 +20,7 @@ import javax.swing.JCheckBox;
 public class L4ETrainer extends JFrame {
 	JLabel header = new JLabel("L4E Trainer");
     static L4ETrainer ex = new L4ETrainer();
-    JLabel reminder = new JLabel("Remember to realign all slice moves after the scramble");
+    JLabel reminder = new JLabel("L4E Trainer");
 
     final JRadioButton b5 = new JRadioButton("5x5");
     final JRadioButton b6 = new JRadioButton("6x6");
