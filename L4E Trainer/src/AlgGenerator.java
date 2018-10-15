@@ -8,7 +8,7 @@ public class AlgGenerator {
 
     private static String[] slice6 = new String[] { "u", "e", "d", "E", "2u", "2d", "u'", "e'", "d'", "E'", "2u'", "2d'" };
 
-    private static String[] flips = new String[] { " R U2 R' F U' F' ", " R L' U R' L U F' U' F2 U2 F' ",
+    private static String[] flips = new String[] { " R U2 R' F' U' F ", " R L' U R' L U F' U' F2 U2 F' ",
             " R L U R' L' U F' B' U' F B " };
 
     public static String createAlg5(boolean parity) {
@@ -16,7 +16,7 @@ public class AlgGenerator {
         for (int i = 0; i <= 3; i++) {
             Random rand = new Random();
             int sliceR = (int)(Math.random() * 6 );
-            int flipR = rand.nextInt(1 + 1) + 0;
+            int flipR = (int)(Math.random() * 2 );
            switch(sliceR){
                case 0: s+= "u " + flips[flipR] + "u' y ";
                    break;
@@ -28,7 +28,7 @@ public class AlgGenerator {
                    break;
                case 4: s+="e' " + flips[flipR] + "e y ";
                    break;
-               case 5: s+="d' " + flips[flipR] + "d' y ";
+               case 5: s+="d' " + flips[flipR] + "d y ";
                    break;
                case 6: s+= "E F2 E'";
                    break;
@@ -58,7 +58,7 @@ public class AlgGenerator {
                    break;
                case 4: s+="ew' " + flips[flipR] + "ew y ";
                    break;
-               case 5: s+="dw' " + flips[flipR] + "dw' y ";
+               case 5: s+="dw' " + flips[flipR] + "dw y ";
                    break;
                case 6: s+= "E F2 E'";
                    break;
