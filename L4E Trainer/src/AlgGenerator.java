@@ -1,12 +1,6 @@
 import java.util.Random;
 
 public class AlgGenerator {
-    private static String[] slice5 = new String[] { "u", "e", "d", "E", "u'", "e'", "d'", "E'", " ", "u2", "d2", "e2" };
-
-    private static String[] slice7 = new String[] { "u", "e", "d", "E", "2u", "2d", "3e", "u'", "e'", "d'", "E'", "2u'", "2d'",
-            "3e'" };
-
-    private static String[] slice6 = new String[] { "u", "e", "d", "E", "2u", "2d", "u'", "e'", "d'", "E'", "2u'", "2d'" };
 
     private static String[] flips = new String[] { " R U2 R' F' U' F ", " R L' U R' L U F' U' F2 U2 F' ",
             " R L U R' L' U F' B' U' F B " };
@@ -14,7 +8,6 @@ public class AlgGenerator {
     public static String createAlg5(boolean parity) {
         String s = "";
         for (int i = 0; i <= 3; i++) {
-            Random rand = new Random();
             int sliceR = (int)(Math.random() * 11 );
             int flipR = (int)(Math.random() * 2 );
            switch(sliceR){
@@ -50,9 +43,8 @@ public class AlgGenerator {
     public static String createAlg5w() {
         String s = "";
         for (int i = 0; i <= 3; i++) {
-            Random rand = new Random();
             int sliceR = (int)(Math.random() * 11 );
-            int flipR = rand.nextInt(1 + 1) + 0;
+            int flipR = (int)(Math.random() * 2 );
            switch(sliceR){
 
            case 0: s+= "uw " + flips[flipR] + "uw' y ";
